@@ -18,7 +18,7 @@ T:{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;
 
 / inner loop: 0-15 (T,U)
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /orig
- N:{[n;o;i]0{x+T[(0 0 -4.;U((i*##xx::xx,i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /i is _n
+ N:{[n;o;i]0{x+T[(0 0 -4.;U((-1#xx::xx,i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /i is _n
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!2 2}       /simpler
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4.)-n%2.),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!2 2}     /overloaded
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4.)-n%2.),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/(0 0;0 1)}  /only-2
@@ -57,3 +57,4 @@ C:{[k;c;r]:[k=1;(c;r);((c;r*3);(,(c;r)),C[k-1;;r%2]'+c+-3 3[V[2;2 3 6 7]]*r%_sqr
 / 2nd res (same: ok or type) is with simpler R and N
 
 /k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0
+
