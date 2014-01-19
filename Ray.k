@@ -18,7 +18,8 @@ T:{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;
 
 / inner loop: 0-15 (T,U)
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /orig
- N:{[n;o;i]0{x+T[(0 0 -4.;U((\ i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}      /copy of orig (show i)
+/N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /no init val
+/N:{[n;o;i]0{x+T[(0 0 -4.;U((\ i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}      /copy of orig (show i)
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(   i +(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+2_vs!4}       /simpler
 /N:{[n;o;i]0{x+T[(0 0 -4.;U((\ i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+2_vs!4}       /show i
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n,0# \ x);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+2_vs!4}    /show x: 4 oc
@@ -43,10 +44,10 @@ T:{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;
 C:{[k;c;r]:[k=1;(c;r);((c;r*3);(,(c;r)),C[k-1;;r%2]'+c+-3 3[2_vs 2 3 6 7]*r%_sqrt 12)]}
 
 / outer loop: nxn -> PGM  (N,C)
- R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}     /orig
+/R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}     /orig
 /R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;\ C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}   /show C res
 /R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.] \ '+|@[n _vs!n*n;0;|:]}     /orig
-/R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}                                              /just last part
+ R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}                                              /just last part
 
 /k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0    /          res= 0.0
 /k:3;      C[k;0 -1 0.]1.                  /          R(orig):large res
@@ -58,3 +59,13 @@ C:{[k;c;r]:[k=1;(c;r);((c;r*3);(,(c;r)),C[k-1;;r%2]'+c+-3 3[2_vs 2 3 6 7]*r%_sqr
 /x:0.0; y:1 0; n:2.0; o:(0 -1 0.0;1.0); i:0; x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.
 /x:0.0; y:1 1; n:2.0; o:(0 -1 0.0;1.0); i:0; x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.
 
+
+ N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /no init val
+`
+"The result WITHOUT inital value is:"
+ k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0
+
+ N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /orig
+`
+"The result WITH initial value is:"
+ k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0

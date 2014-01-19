@@ -18,9 +18,9 @@ T:{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;
 
 / inner loop: 0-15 (T,U)
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /orig
-/N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /no leading 0
- N:{[n;o;i]0{x+T[(0 0 -4.;U((*xx::i,xx)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /i is _n (capture)
-/N:{[n;o;i] {x+T[(0 0 -4.;U((-1#xx::xx,i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /i is _n
+/N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /no init value
+/N:{[n;o;i]0{x+T[(0 0 -4.;U((*xx::i,xx)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /i is _n (capture)
+/N:{[n;o;i] {x+T[(0 0 -4.;U((*xx::i,xx)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4} /capture (no init value)
 /N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /no caputure
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!2 2}       /simpler
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4.)-n%2.),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!2 2}     /overloaded
@@ -59,5 +59,12 @@ C:{[k;c;r]:[k=1;(c;r);((c;r*3);(,(c;r)),C[k-1;;r%2]'+c+-3 3[V[2;2 3 6 7]]*r%_sqr
 / 1st res is with orig R and N
 / 2nd res (same: ok or type) is with simpler R and N
 
- k:1; n:2; xx:99; N[n*1.;   (0 -1 0.0;1.0)  ]0    /capture
- xx
+ N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /no init value
+`
+"The result WITHOUT inital value is:"
+ k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0
+
+ N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/!4 4}       /orig
+`
+"The result WITH initial value is:"
+ k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0
