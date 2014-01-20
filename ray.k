@@ -12,6 +12,7 @@
 
 / intersect (S,U)
  I:{[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}   /orig
+ I:{[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}   /orig
 
 / ray_trace (I)
  T:{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;-l);z]o;-g;0.]}   /orig
@@ -74,7 +75,7 @@
 /{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;-l);z]o;-g;0.]}[r;o;d;z;l]
 
  r:(0 0 -4.0;-0.1230915 -0.1230915 0.9867319); o:(0 -1 0.0;1.0); h:(0i;0 0 0.0);                       /I diff
-/{[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}[r;h;o]
+ {[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}[r;h;o]
 
 /x:-0.4084567 0.5915433 -0.7257104                                                                     /U ok
 /{x%_sqrt x _dot x}x
@@ -82,12 +83,22 @@
 /r:(0 0 -4.0;-0.1230915 -0.1230915 0.9867319); s:(0 -1 0.0;1.0);                                       /S ok
 /{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:s[0]-*r;0i;0>t:b+e:_sqrt d;0i;0<u:b-e;u;t]}[r;s]
 
-/    {[r;h;o]:[~4:*o;                   /cond              0
-/                :[~S[r;*o]<*h;         /true    cond
-/                    h;                 /        true
-/                    h _f[r]/o 1];      /        false
-/                ~h[0]>l:S[r]o;         /cond              1
-/                h;                     /true              (0i;0 0 0.0)
-/                (l;U r[0]-o[0]-l*r 1)  /false             
-/             ]
-/    }[r;h;o]
+/ I:{[r;h;o]:[~4:*o;                   /cond1             0
+/               :[~S[r;*o]<*h;         /true1   cond1a
+/                   h;                 /        true1a
+/                   h _f[r]/o 1];      /        false1a
+/               ~h[0]>l:S[r]o;         /cond2             1
+/               h;                     /true2             (0i;0 0 0.0)
+/               (l;U r[0]-o[0]-l*r 1)  /false             
+/            ]
+/   }[r;h;o]   /orig
+
+/ S:{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:s[0]-*r;    /cond1
+/             0i;                                                 /true1
+/             0>t:b+e:_sqrt d;                                    /cond2
+/             0i;                                                 /true2
+/             0<u:b-e;                                            /cond3
+/             u;                                                  /true3
+/             t                                                   /false
+/          ]
+/   }      /orig

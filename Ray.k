@@ -8,6 +8,7 @@
 /S:{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:s[0]-*(\r);0i;0>t:b+e:_sqrt d;0i;0<u:b-e;u;t]}   /track r
 /S:{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:(\s)[0]-*r;0i;0>t:b+e:_sqrt d;0i;0<u:b-e;u;t]}   /track s
 
+
 / unit vector
  U:{x%_sqrt x _dot x}           /orig
 /U:{x%_sqrt x _dot x+0* \ x}    /display x
@@ -58,7 +59,7 @@
 / outer loop: nxn -> PGM  (N,C)
  R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}     /orig
 /R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;\ C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}   /show C res
-/R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.] \ '+|@[n _vs!n*n;0;|:]}     /orig
+/R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.] \ '+|@[n _vs!n*n;0;|:]}  /show
 /R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}                                              /just last part
 
 /k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0    /          res= 0.0
@@ -88,7 +89,7 @@
 /{[r;o;d;z;l]:[0i=*h:I[r;z]o;0.;~0>g:h[1]_dot l;0.;0i=*I[(r[0]+(r[1]**h)+d*h 1;-l);z]o;-g;0.]}[r;o;d;z;l]
 
  r:(0 0 -4.0;-0.1230915 -0.1230915 0.9867319); o:(0 -1 0.0;1.0); h:(0i;0 0 0.0);                       /I diff
-/{[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}[r;h;o]
+ {[r;h;o]:[~4:*o;:[~S[r;*o]<*h;h;h _f[r]/o 1];~h[0]>l:S[r]o;h;(l;U r[0]-o[0]-l*r 1)]}[r;h;o]
 
 /x:-0.4084567 0.5915433 -0.7257104                                                                     /U ok
 /{x%_sqrt x _dot x}x
@@ -96,12 +97,22 @@
 /r:(0 0 -4.0;-0.1230915 -0.1230915 0.9867319); s:(0 -1 0.0;1.0);                                       /S ok
 /{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:s[0]-*r;0i;0>t:b+e:_sqrt d;0i;0<u:b-e;u;t]}[r;s]
 
-/    {[r;h;o]:[~4:*o;                   /cond              0
-/                :[~S[r;*o]<*h;         /true    cond
-/                    h;                 /        true
-/                    h _f[r]/o 1];      /        false
-/                ~h[0]>l:S[r]o;         /cond              0
-/                h;                     /true
+/    {[r;h;o]:[~4:*o;                   /cond1             0
+/                :[~S[r;*o]<*h;         /true1   cond1a
+/                    h;                 /        true1a
+/                    h _f[r]/o 1];      /        false1a
+/                ~h[0]>l:S[r]o;         /cond2             0
+/                h;                     /true2
 /                (l;U r[0]-o[0]-l*r 1)  /false             (-3.318317;-0.3998686 0.5791057 -0.7104518)
 /             ]
 /    }[r;h;o]
+
+/ S:{[r;s]:[0>d:_sqr[s 1]+_sqr[b:v _dot r 1]-v _dot v:s[0]-*r;    /cond1
+/             0i;                                                 /true1
+/             0>t:b+e:_sqrt d;                                    /cond2
+/             0i;                                                 /true2
+/             0<u:b-e;                                            /cond3
+/             u;                                                  /true3
+/             t                                                   /false
+/          ]
+/   }      /orig
