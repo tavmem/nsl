@@ -30,6 +30,7 @@
 
 / inner loop: 0-15 (T,U)
 /N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /orig
+/N:{[n;o;i]0{x+T[(0 0 -4.;U((\ i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}      /trace i
 /N:{[n;o;i]0{x+ \T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}        /trace T
 /N:{[n;o;i] {x+T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}          /no init val
 /N:{[n;o;i]0{x+T[(0 0 -4.;U((\ i)+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/+4_vs!16}      /copy of orig (trace i)
@@ -57,10 +58,12 @@
  C:{[k;c;r]:[k=1;(c;r);((c;r*3);(,(c;r)),C[k-1;;r%2]'+c+-3 3[2_vs 2 3 6 7]*r%_sqrt 12)]}
 
 / outer loop: nxn -> PGM  (N,C)
-/R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}     /orig
+ R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}     /orig
+/R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.]' \ +|@[n _vs!n*n;0;|:]}  /orig w trace
 /R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;\ C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}   /show C res
 /R:{[k;n]"P5\n",(5:n,n),"\n255\n",_ci _.5+15.9375*N[n*1.;C[k;0 -1 0.]1.] \ '+|@[n _vs!n*n;0;|:]}  /show
- R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}                                              /just last part
+/R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]'+|@[n _vs!n*n;0;|:]}                                              /last part
+/R:{[k;n]N[n*1.;C[k;0 -1 0.]1.]' \ +|@[n _vs!n*n;0;|:]}                                           /last part w trace
 
 /k:1; n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0    /          res= 0.0
 /k:3;      C[k;0 -1 0.]1.                  /          R(orig):large res
@@ -132,8 +135,8 @@
 /N:{[n;o;i]0{x+T[(0 0 -4.;U((\i)+(y%4)-1.),2);o;5e-07;0i,,3#0.](-.2 -.8 .5)}/,3 2}            /show i becomes 1
 /n:2; N[n*1.;   (0 -1 0.0;1.0)  ]1        /equiv of partial R                                 /show i becomes 1
 
- N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-1.),2);o;5e-07;0i,,3#0.](-.2 -.8 .5)}/,3 2}               /shorten numbe 
- m:2; N[m*1.;   (0 -1 0.0;1.0)  ]0                                                            /equiv of partial R 
+/N:{[n;o;i]0{x+T[(0 0 -4.;U(i+(y%4)-1.),2);o;5e-07;0i,,3#0.](-.2 -.8 .5)}/,3 2}               /shorten number
+/m:2; N[m*1.;   (0 -1 0.0;1.0)  ]0                                                            /equiv of partial R 
 
 
 /T:{[r;o;d;z;l]:[ 0i=*h:I[r;z]o;                         /cond1
@@ -145,3 +148,7 @@
 /                 0.                                     /false
 /               ]
 /  }     /orig
+
+
+ N:{[n;o;i]0{x+  T[(0 0 -4.;U(i+(y%4)-n%2),n);o;_sqrt 2^-42;0i,,3#0.]U -1 -3 2.}/,3 2}      /over 1 case
+ n:2; N[n*1.;   (0 -1 0.0;1.0)  ]0                                                          /sb 0.553329
